@@ -1,5 +1,7 @@
 {
-  "test": "lalalla",
+  "services": {
+    "search": "ServicesMLSearch"
+  },
   "toolbar": {
     "searchPlaceholder": "Nunca dejes de buscar"
   }

@@ -7,7 +7,13 @@
 <script>
 export default {
   name: "Home",
-  data: () => ({})
+  data: () => ({}),
+  methods: {
+    search: query => {
+      console.log("query");
+      console.log(query);
+    }
+  }
 };
 </script>
 
