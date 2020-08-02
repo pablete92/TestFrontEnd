@@ -1,11 +1,11 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/components/Home";
-import HomeLayout from "@/components/layouts/homeLayout";
+import Details from "@/components/Details";
+import { HomeLayout } from "@/components/layouts";
 
 Vue.use(Router);
-
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/",
@@ -18,6 +18,13 @@ export default new Router({
           component: Home
         }
       ]
+    },
+    {
+      path: "/items/:id",
+      name: "Details",
+      component: Details
     }
   ]
 });
+
+export default router;

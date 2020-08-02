@@ -1,5 +1,6 @@
 const state = {
-  isLoading: false
+  isLoading: false,
+  search: ""
 };
 
 export default state;

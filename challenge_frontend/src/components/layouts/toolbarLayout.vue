@@ -1,5 +1,5 @@
 <template>
-  <v-toolbar fixed>
+  <v-app-bar fixed>
     <v-card class="mx-auto" max-width="700" style="margin-top: -30px;">
       <v-app-bar app color="primary">
         <v-img
@@ -14,6 +14,7 @@
           outlined
           dense
           hide-details
+          v-model="searchValue"
         ></v-text-field>
         <v-btn
           icon
@@ -34,23 +35,23 @@
         </v-btn>
       </v-app-bar>
     </v-card>
-  </v-toolbar>
+  </v-app-bar>
 </template>
 
 <script>
-import { ServicesFactory } from "@/services/servicesFactory";
-import i18n from "@/i18n/es.json";
-
-let servicesSearch = ServicesFactory.get(i18n.services.search);
-
 export default {
-  data: () => ({}),
+  name: "AppToolbar",
+  data: () => ({
+    searchValue: ""
+  }),
   methods: {
-    async search() {
-      console.log("lala");
-      await servicesSearch.getSearch("Apple ipod").then(response => {
-        this.$emit("search", response);
-      });
+    search() {
+      if (this.searchValue === "") {
+        return;
+      }
+      this.$store.dispatch("setLoader", true);
+
+      this.$store.dispatch("search", this.searchValue);
     }
   }
 };
