@@ -1,3 +1,6 @@
 {
-  "test": "lalalla"
+  "test": "lalalla",
+  "toolbar": {
+    "searchPlaceholder": "Nunca dejes de buscar"
+  }
 }
