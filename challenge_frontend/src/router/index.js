@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
 import Home from "@/components/Home";
+import Items from "@/components/Items";
 import Details from "@/components/Details";
 import { HomeLayout } from "@/components/layouts";
 
@@ -16,13 +17,18 @@ const router = new Router({
           path: "/",
           name: "Home",
           component: Home
+        },
+        {
+          path: "/items?search=:id",
+          name: "Items",
+          component: Items
+        },
+        {
+          path: "/items/:id",
+          name: "Details",
+          component: Details
         }
       ]
-    },
-    {
-      path: "/items/:id",
-      name: "Details",
-      component: Details
     }
   ]
 });

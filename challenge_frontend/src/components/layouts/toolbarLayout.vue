@@ -46,10 +46,9 @@ export default {
   }),
   methods: {
     search() {
-      if (this.searchValue === "") {
+      if (!this.searchValue || this.searchValue == this.$store.getters.search) {
         return;
       }
-      this.$store.dispatch("setLoader", true);
 
       this.$store.dispatch("search", this.searchValue);
     }
