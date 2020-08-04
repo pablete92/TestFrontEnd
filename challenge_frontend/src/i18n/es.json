@@ -5,11 +5,16 @@
     "item": "ServicesMLItem"
   },
   "toolbar": {
-    "searchPlaceholder": "Nunca dejes de buscar"
+    "searchPlaceholder": "Nunca dejes de buscar",
+    "searchAlt": "Mercado Libre"
   },
   "details": {
     "sold": "vendidos",
     "btnBuy": "Comprar",
     "productDescriptionTitle": "Descripción del producto"
+  },
+  "externalLink": {
+    "ML": "https://www.mercadolibre.com.ar/",
+    "MLView": "/MercadoLibre"
   }
 }

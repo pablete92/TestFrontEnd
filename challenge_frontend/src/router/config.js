@@ -1,3 +1,4 @@
+import i18n from "@/i18n/es.json";
 import { HomeLayout } from "@/components/layouts";
 
 export const publicRoute = [
@@ -23,5 +24,11 @@ export const publicRoute = [
         props: true
       }
     ]
+  },
+  {
+    path: "/MercadoLibre",
+    beforeEnter() {
+      location.href = i18n.externalLink.ML;
+    }
   }
 ];

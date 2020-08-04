@@ -5,7 +5,7 @@
     <v-row no-gutters>
       <template v-for="n in pagination.rowsPerPage" :pagination="pagination">
         <v-col :key="n" class="mb-2">
-          <v-card class="pa-2" outlined tile @click="click(response[n])">
+          <v-card class="pa-2" outlined tile @click="click(response[n * pagination.page])">
             <v-row v-if="response[n * pagination.page]">
               <v-img
                 :src="response[n * pagination.page].thumbnail"
@@ -16,7 +16,7 @@
               <v-col>
                 <h1>{{ response[n * pagination.page].price | currency }}</h1>
                 <v-img
-                  :src="require('@/assets/ic_shipping@2x.png.png')"
+                  :lazy-src="require('@/assets/ic_shipping@2x.png.png')"
                   :contain="true"
                   block
                   max-height="30px"
@@ -79,10 +79,9 @@ export default {
   },
   data: () => ({
     response: [],
-    filters: "",
+    filters: String.prototype.Empty,
     pagination: {
       rowsPerPage: 4,
-      sortBy: "id",
       descending: true,
       page: 1,
     },
@@ -111,13 +110,14 @@ export default {
           }
 
           this.response = response.data.results;
+
           this.pagination.totalItems = this.response.length;
           this.pagination.page = 1;
           this.pagination.pages = Math.ceil(
             this.pagination.totalItems / this.pagination.rowsPerPage
           );
 
-          this.filters = "";
+          this.filters = String.prototype.Empty;
 
           if (response.data.filters.length > 0) {
             this.filters = response.data.filters[0].values[0].name;

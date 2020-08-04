@@ -6,7 +6,7 @@
       <v-container>
         <v-row justify="space-between">
           <v-col cols="auto">
-            <v-img :src="item.thumbnail" :contain="true" block> </v-img>
+            <v-img :src="item.thumbnail" :contain="true" block></v-img>
           </v-col>
           <v-col>
             <p>
@@ -15,15 +15,13 @@
             </p>
             <h3>{{ item.title }}</h3>
             <h2>{{ item.price | currency }}</h2>
-            <v-btn class="secondary text-capitalize"
-              >{{ $t("details.btnBuy") }}
-            </v-btn>
+            <v-btn class="secondary text-capitalize">{{ $t("details.btnBuy") }}</v-btn>
           </v-col>
         </v-row>
         <v-row class="mt-8">
           <v-col cols="auto">
             <h2>{{ $t("details.productDescriptionTitle") }}</h2>
-            <p class="mt-3">{{ itemDescription.plain_text }}</p>
+            <p class="mt-5">{{ itemDescription.plain_text }}</p>
           </v-col>
         </v-row>
       </v-container>
@@ -41,21 +39,21 @@ let servicesItem = ServicesFactory.get(i18n.services.item);
 export default {
   props: {
     filtersProps: {
-      type: String
-    }
+      type: String,
+    },
   },
   components: {
-    loader
+    loader,
   },
   computed: {
     searchWatch() {
       return this.$store.getters.search;
-    }
+    },
   },
   watch: {
     searchWatch(value) {
       this.search(value);
-    }
+    },
   },
   created() {
     if (this.filtersProps) {
@@ -68,13 +66,13 @@ export default {
     this.searchItem(this.$route.params.id);
   },
   data: () => ({
-    filters: "",
+    filters: String.prototype.Empty,
     item: [],
-    itemDescription: []
+    itemDescription: [],
   }),
   methods: {
     async searchItem(value) {
-      await servicesItem.getItemById(value).then(response => {
+      await servicesItem.getItemById(value).then((response) => {
         if (!response) {
           return;
         }
@@ -86,7 +84,7 @@ export default {
     async searchItemDescription(value) {
       await servicesItem
         .getDescriptionById(value)
-        .then(response => {
+        .then((response) => {
           if (!response) {
             return;
           }
@@ -99,10 +97,10 @@ export default {
       this.$router.push({
         name: "Items",
         query: {
-          search: value
-        }
+          search: value,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
