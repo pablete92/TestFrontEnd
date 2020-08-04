@@ -5,5 +5,10 @@
   },
   "toolbar": {
     "searchPlaceholder": "Nunca dejes de buscar"
+  },
+  "details": {
+    "sold": "vendidos",
+    "btnBuy": "Comprar",
+    "productDescriptionTitle": "Descripción del producto"
   }
 }
