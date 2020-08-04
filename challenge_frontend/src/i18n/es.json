@@ -1,5 +1,6 @@
 {
   "services": {
+    "base": "https://api.mercadolibre.com/",
     "search": "ServicesMLSearch",
     "item": "ServicesMLItem"
   },

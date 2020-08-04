@@ -1,6 +1,7 @@
 import axios from "axios";
+import i18n from "@/i18n/es.json";
 
-let baseURL = "https://api.mercadolibre.com/";
+let baseURL = i18n.services.base;
 
 let axiosInstance = axios.create({
   timeout: 1000000

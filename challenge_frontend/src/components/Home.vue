@@ -6,7 +6,6 @@
 
 <script>
 import loader from "@/components/_loader";
-import i18n from "@/i18n/es.json";
 
 export default {
   name: "Home",
@@ -27,8 +26,6 @@ export default {
         }
       });
     }
-  },
-  data: () => ({}),
-  methods: {}
+  }
 };
 </script>

@@ -3,37 +3,46 @@
     <loader></loader>
     <h5>{{ filters }}</h5>
     <v-row no-gutters>
-      <template v-for="n in response">
-        <v-col :key="n.id" class="mb-2">
-          <v-card class="pa-2" outlined tile @click="click(n)">
-            <v-row>
+      <template v-for="n in pagination.rowsPerPage" :pagination="pagination">
+        <v-col :key="n" class="mb-2">
+          <v-card class="pa-2" outlined tile @click="click(response[n])">
+            <v-row v-if="response[n * pagination.page]">
               <v-img
-                :src="n.thumbnail"
+                :src="response[n * pagination.page].thumbnail"
                 :contain="true"
                 block
                 max-height="150px"
-              >
-              </v-img>
+              ></v-img>
               <v-col>
-                <h1>
-                  {{ n.price | currency }}
-                </h1>
+                <h1>{{ response[n * pagination.page].price | currency }}</h1>
                 <v-img
                   :src="require('@/assets/ic_shipping@2x.png.png')"
                   :contain="true"
                   block
                   max-height="30px"
-                  v-if="n.shipping.free_shipping"
-                >
-                </v-img>
-                <h3>{{ n.title }}</h3>
+                  v-if="response[n * pagination.page].shipping.free_shipping"
+                ></v-img>
+                <h3>{{ response[n * pagination.page].title }}</h3>
               </v-col>
-              <p class="ml-2 mr-3">{{ n.address.state_name }}</p>
+              <p class="ml-2 mr-3">{{ response[n * pagination.page].address.state_name }}</p>
             </v-row>
           </v-card>
         </v-col>
-        <v-responsive :key="`width-${n.id}`" width="100%"></v-responsive>
+        <v-responsive :key="`width-${n}`" width="100%"></v-responsive>
       </template>
+      <v-container bg fill-height grid-list-md text-xs-center>
+        <v-layout row wrap align-center>
+          <v-flex>
+            <v-pagination
+              v-model="pagination.page"
+              :length.sync="pagination.pages"
+              :total-visible="7"
+              color="secondary"
+              circle
+            ></v-pagination>
+          </v-flex>
+        </v-layout>
+      </v-container>
     </v-row>
   </div>
 </template>
@@ -48,7 +57,7 @@ let servicesSearch = ServicesFactory.get(i18n.services.search);
 export default {
   name: "Items",
   components: {
-    loader
+    loader,
   },
   mounted() {
     this.search(this.$route.query.search);
@@ -56,16 +65,27 @@ export default {
   computed: {
     searchWatch() {
       return this.$store.getters.search;
-    }
+    },
   },
   watch: {
     searchWatch(value) {
       this.search(value);
-    }
+    },
+    pagination() {
+      this.pagination.pages = Math.ceil(
+        this.pagination.totalItems / this.pagination.rowsPerPage
+      );
+    },
   },
   data: () => ({
     response: [],
-    filters: ""
+    filters: "",
+    pagination: {
+      rowsPerPage: 4,
+      sortBy: "id",
+      descending: true,
+      page: 1,
+    },
   }),
   methods: {
     async search(value) {
@@ -73,23 +93,29 @@ export default {
 
       if (value != this.$store.getters.search) {
         this.$store.dispatch("search", value);
+        return;
       } else if (value != this.$route.query.search) {
         this.$router.replace({
           name: "Items",
           query: {
-            search: value
-          }
+            search: value,
+          },
         });
       }
 
       await servicesSearch
         .getSearch(value)
-        .then(response => {
+        .then((response) => {
           if (!response) {
             return;
           }
 
-          this.response = response.data.results.slice(0, 4);
+          this.response = response.data.results;
+          this.pagination.totalItems = this.response.length;
+          this.pagination.page = 1;
+          this.pagination.pages = Math.ceil(
+            this.pagination.totalItems / this.pagination.rowsPerPage
+          );
 
           this.filters = "";
 
@@ -112,10 +138,10 @@ export default {
         name: "Details",
         params: {
           id: value.id,
-          filtersProps: this.filters
-        }
+          filtersProps: this.filters,
+        },
       });
-    }
-  }
+    },
+  },
 };
 </script>
