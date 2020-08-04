@@ -15,7 +15,17 @@
               >
               </v-img>
               <v-col>
-                <h1>{{ n.price | currency }}</h1>
+                <h1>
+                  {{ n.price | currency }}
+                </h1>
+                <v-img
+                  :src="require('@/assets/ic_shipping@2x.png.png')"
+                  :contain="true"
+                  block
+                  max-height="30px"
+                  v-if="n.shipping.free_shipping"
+                >
+                </v-img>
                 <h3>{{ n.title }}</h3>
               </v-col>
               <p class="ml-2 mr-3">{{ n.address.state_name }}</p>
@@ -41,7 +51,7 @@ export default {
     loader
   },
   mounted() {
-    this.search();
+    this.search(this.$route.query.search);
   },
   computed: {
     searchWatch() {
@@ -61,10 +71,19 @@ export default {
     async search(value) {
       this.$store.dispatch("setLoader", true);
 
-      let query = value === undefined ? this.$route.params.id : value;
+      if (value != this.$store.getters.search) {
+        this.$store.dispatch("search", value);
+      } else if (value != this.$route.query.search) {
+        this.$router.replace({
+          name: "Items",
+          query: {
+            search: value
+          }
+        });
+      }
 
       await servicesSearch
-        .getSearch(query)
+        .getSearch(value)
         .then(response => {
           if (!response) {
             return;
@@ -85,7 +104,6 @@ export default {
           }
         })
         .finally(() => {
-          this.searchSuccess = true;
           this.$store.dispatch("setLoader", false);
         });
     },
@@ -94,7 +112,7 @@ export default {
         name: "Details",
         params: {
           id: value.id,
-          filters: this.filters
+          filtersProps: this.filters
         }
       });
     }

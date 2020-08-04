@@ -1,7 +1,9 @@
 import ServicesMLSearch from "./servicesMLSearch";
+import ServicesMLItem from "./servicesMLItems";
 
 let services = {
-  ServicesMLSearch
+  ServicesMLSearch,
+  ServicesMLItem
 };
 
 export let ServicesFactory = {

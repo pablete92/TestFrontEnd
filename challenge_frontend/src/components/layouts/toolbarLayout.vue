@@ -41,6 +41,16 @@
 <script>
 export default {
   name: "AppToolbar",
+  computed: {
+    searchWatch() {
+      return this.$store.getters.search;
+    }
+  },
+  watch: {
+    searchWatch(value) {
+      this.setModel(value);
+    }
+  },
   data: () => ({
     searchValue: ""
   }),
@@ -51,6 +61,9 @@ export default {
       }
 
       this.$store.dispatch("search", this.searchValue);
+    },
+    setModel(value) {
+      this.searchValue = value;
     }
   }
 };

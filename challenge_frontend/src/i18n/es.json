@@ -1,6 +1,7 @@
 {
   "services": {
-    "search": "ServicesMLSearch"
+    "search": "ServicesMLSearch",
+    "item": "ServicesMLItem"
   },
   "toolbar": {
     "searchPlaceholder": "Nunca dejes de buscar"

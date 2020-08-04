@@ -7,6 +7,7 @@ import { HomeLayout } from "@/components/layouts";
 
 Vue.use(Router);
 const router = new Router({
+  mode: "history",
   routes: [
     {
       path: "/",
@@ -19,14 +20,15 @@ const router = new Router({
           component: Home
         },
         {
-          path: "/items?search=:id",
+          path: "/items",
           name: "Items",
           component: Items
         },
         {
           path: "/items/:id",
           name: "Details",
-          component: Details
+          component: Details,
+          props: true
         }
       ]
     }
