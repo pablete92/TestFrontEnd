@@ -16,7 +16,7 @@
     "vue-currency-filter": "^5.1.0",
     "vue-currency-input": "^1.20.3",
     "vue-router": "^3.0.1",
-    "vuetify": "^2.3.7",
+    "vuetify": "^2.6.10",
     "vuex": "^3.5.1",
     "vuex-i18n": "^1.13.1"
   },
